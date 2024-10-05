@@ -17,7 +17,7 @@ fi
 
 # Create a CSV file with headers
 output_file="sui_addresses.csv"
-echo "Alias;Address;Public Key;Recovery Phrase" > "$output_file"
+echo "Alias;Address;keyScheme;Recovery Phrase" > "$output_file"
 
 # Loop to create addresses
 for ((i=1; i<=$num_addresses; i++))
@@ -28,11 +28,11 @@ do
     # Extract information from JSON output
     alias=$(echo "$output" | jq -r '.alias')
     address=$(echo "$output" | jq -r '.address')
-    public_key=$(echo "$output" | jq -r '.publicKey.publicKey')
+    keyScheme=$(echo "$output" | jq -r '.keyScheme')
     recovery_phrase=$(echo "$output" | jq -r '.recoveryPhrase')
 
     # Append to CSV file
-    echo "$alias;$address;$public_key;$recovery_phrase" >> "$output_file"
+    echo "$alias;$address;$keyScheme;$recovery_phrase" >> "$output_file"
 
     echo "Created address $i of $num_addresses"
 done
